@@ -1,6 +1,4 @@
-# Market_Pulse
-
-<h1 align="center">📊 MarketPulse</h1>
+<h1 align="center">📊 Market_Pulse</h1>
 <h3 align="center">AI-Powered Market Sentiment Analysis using Google Gemini</h3>
 
 <p align="center">
@@ -158,5 +156,5 @@ well-suited for real-world financial applications.
 </p>
 
 <p align="center">
-  <b>Built with ❤️ for TechSprint Hackathon</b>
+  <b>Built with ❤️ by</b>
 </p>
