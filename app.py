@@ -20,12 +20,10 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
 
-    /* Gradient Background */
     .stApp {
         background: radial-gradient(circle at 10% 20%, rgb(15, 23, 42) 0%, rgb(0, 0, 0) 90%);
     }
 
-    /* Glassmorphism Card */
     .metric-card {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -41,7 +39,6 @@ st.markdown("""
         border-color: rgba(56, 189, 248, 0.5);
     }
 
-    /* Typography */
     .big-stat {
         font-size: 36px;
         font-weight: 800;
@@ -56,7 +53,6 @@ st.markdown("""
         letter-spacing: 1px;
     }
 
-    /* Input & Button Styling */
     div[data-testid="stTextInput"] input {
         background-color: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -76,7 +72,6 @@ st.markdown("""
         box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
     }
     
-    /* Footer */
     .footer {
         position: fixed; left: 0; bottom: 0; width: 100%;
         background-color: rgba(15, 23, 42, 0.9); color: #64748b;
