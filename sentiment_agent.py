@@ -1,12 +1,9 @@
 import json
-
 from Market_Pulse.config import model
 from Market_Pulse.utils import clean_text
 
-
 def analyze_sentiment(ticker, headlines):
     results = []
-
     for news in headlines:
         cleaned = clean_text(news)
 
@@ -34,7 +31,6 @@ def analyze_sentiment(ticker, headlines):
 
         # response = model.generate_content(prompt)
         # results.append(response.text)
-# added part
         try:
             response = model.generate_content(prompt)
             text = response.text
@@ -48,7 +44,6 @@ def analyze_sentiment(ticker, headlines):
             }))
             continue
 
-        # extract JSON safely
         import re
         match = re.search(r"\{.*\}", text, re.DOTALL)
 
@@ -61,52 +56,4 @@ def analyze_sentiment(ticker, headlines):
                 "keywords": [],
                 "summary": "Invalid Gemini response"
             }))
-
-
     return results
-
-
-# import json
-# from Market_Pulse.config import model
-
-# def analyze_sentiment(ticker, _):
-#     prompt = f"""
-# You are a financial market analyst AI.
-
-# TASK:
-# - Fetch and analyze recent (last few days) market news for "{ticker}"
-# - Consider earnings, macro news, stock performance, investor sentiment
-
-# SCORING RULES:
-# - Score range: -1.0 to +1.0
-# - Strong positive news → > 0.4
-# - Strong negative news → < -0.4
-# - Mixed or unclear → neutral
-
-# RETURN ONLY VALID JSON:
-
-# {{
-#   "sentiment": "positive | negative | neutral",
-#   "score": number,
-#   "articles_analyzed": number,
-#   "summary": "one-line explanation"
-# }}
-# """
-
-#     try:
-#         response = model.generate_content(prompt)
-#         text = response.text.strip()
-
-#         start = text.index("{")
-#         end = text.rindex("}") + 1
-#         parsed = json.loads(text[start:end])
-
-#         return [json.dumps(parsed)]
-
-#     except Exception:
-#         return [json.dumps({
-#             "sentiment": "neutral",
-#             "score": 0.0,
-#             "articles_analyzed": 0,
-#             "summary": "Fallback due to AI error"
-#         })]
