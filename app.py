@@ -151,22 +151,17 @@ if analyze_btn and ticker:
                     f"Regulatory concerns loom over {ticker.upper()} sector."
                 ]
             
-            # REAL MODE
             else:
                 response = requests.get(BACKEND_URL, params={"ticker": ticker}, timeout=10)
                 response.raise_for_status()
                 data = response.json().get(ticker, {})
-                
-                # Robust extraction with defaults
+
                 sentiment = data.get("sentiment", "Unknown")
                 score = float(data.get("score", 0.0))
                 articles = data.get("articles_analyzed", 0)
                 news_headlines = data.get("headlines", ["No news found."])
-
             st.write("🧠 Gemini AI processing semantics...")
             status.update(label="Analysis Complete!", state="complete", expanded=False)
-            
-            # Save to history
             st.session_state.history.append({
                 "time": datetime.now().strftime("%H:%M:%S"),
                 "ticker": ticker.upper(),
@@ -175,7 +170,6 @@ if analyze_btn and ticker:
 
             st.divider()
             
-            # Metrics
             m1, m2, m3 = st.columns(3)
             with m1: render_metric_card("Confidence", score)
             with m2: render_metric_card("Sentiment", sentiment.capitalize())
@@ -183,10 +177,8 @@ if analyze_btn and ticker:
 
             st.write("") 
 
-            # Charts
             c1, c2 = st.columns([1, 1])
 
-            # Gauge Chart
             with c1:
                 st.markdown("### 🧭 Sentiment Gauge")
                 gauge_fig = go.Figure(go.Indicator(
@@ -210,7 +202,6 @@ if analyze_btn and ticker:
                 gauge_fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", font={'color': "white"}, height=300, margin=dict(l=20, r=20, t=20, b=20))
                 st.plotly_chart(gauge_fig, use_container_width=True)
 
-            # Trend Chart
             with c2:
                 st.markdown("### 📈 Sentiment Trend")
                 if len(st.session_state.history) > 0:
@@ -218,7 +209,7 @@ if analyze_btn and ticker:
                     line_fig = go.Figure()
                     
                     line_fig.add_trace(go.Scatter(
-                        x=hist_df["time"], # UPDATED: Uses Time on X-Axis
+                        x=hist_df["time"],
                         y=hist_df["score"],
                         mode='lines+markers',
                         line=dict(color='#38bdf8', width=3),
@@ -238,7 +229,6 @@ if analyze_btn and ticker:
                     )
                     st.plotly_chart(line_fig, use_container_width=True)
 
-            # News Feed
             st.markdown("### 📰 Key Insights")
             for headline in news_headlines:
                 st.markdown(f"""
