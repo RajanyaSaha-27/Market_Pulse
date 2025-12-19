@@ -156,5 +156,5 @@ well-suited for real-world financial applications.
 </p>
 
 <p align="center">
-  <b>Built with ❤️ by</b>
+  <b>Built with ❤️ by CodeCrafters</b>
 </p>
