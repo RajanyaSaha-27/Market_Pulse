@@ -1,55 +1,3 @@
-# import streamlit as st
-# import requests
-
-# st.set_page_config(page_title="MarketPulse", layout="centered")
-
-# st.title("📊 MarketPulse – AI Market Sentiment")
-
-# ticker = st.text_input("Enter Market Ticker (AAPL, TSLA, BTC, NIFTY)")
-
-# if st.button("Analyze Sentiment"):
-
-#     if not ticker:
-#         st.warning("Please enter a ticker symbol.")
-#         st.stop()
-
-#     try:
-#         response = requests.get(
-#             f"http://127.0.0.1:8000/analyze?ticker={ticker}",
-#             timeout=30
-#         )
-#         response.raise_for_status()
-
-#         data = response.json()[ticker]
-#         key = list(data.keys())[0]
-#         result = data[key]
-
-#     except requests.exceptions.Timeout:
-#         st.error("⏳ Backend is taking too long to respond.")
-#         st.stop()
-
-#     except requests.exceptions.ConnectionError:
-#         st.error("❌ Backend is not running. Start FastAPI first.")
-#         st.stop()
-
-#     except Exception as e:
-#         st.error(f"Unexpected error: {e}")
-#         st.stop()
-
-#     # ---------- UI OUTPUT ----------
-#     st.subheader(f"Sentiment for {ticker}")
-
-#     color = (
-#         "🟢" if data["sentiment"] == "positive" else
-#         "🔴" if data["sentiment"] == "negative" else
-#         "🟡"
-#     )
-
-#     st.markdown(f"### {color} {data['sentiment'].upper()}")
-#     st.metric("Sentiment Score", data["score"])
-#     st.text(f"Articles Analyzed: {data['articles_analyzed']}")
-
-
 import streamlit as st
 import requests
 from datetime import datetime
@@ -57,7 +5,6 @@ import plotly.graph_objects as go
 import pandas as pd
 import random
 
-# ================= CONFIGURATION =================
 st.set_page_config(
     page_title="MarketPulse | AI Sentiment",
     page_icon="⚡",
@@ -65,7 +12,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ================= THEME & CSS =================
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
@@ -140,7 +86,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ================= STATE MANAGEMENT =================
 BACKEND_URL = "http://127.0.0.1:8000/analyze"
 
 if "history" not in st.session_state:
@@ -159,7 +104,6 @@ def render_metric_card(label, value, prefix="", suffix=""):
     </div>
     """, unsafe_allow_html=True)
 
-# ================= SIDEBAR =================
 with st.sidebar:
     st.markdown("### ⚡ MarketPulse")
     st.caption("AI-Powered Financial Intelligence")
@@ -183,7 +127,6 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("*Powered by Gemini*")
 
-# ================= MAIN UI =================
 st.markdown("<h1 style='text-align: center;'>Market<span style='color:#38bdf8'>Pulse</span></h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 40px;'>Real-time AI Market Sentiment Analysis</p>", unsafe_allow_html=True)
 
@@ -195,16 +138,15 @@ with col2:
     with search_col_b:
         analyze_btn = st.button("Analyze 🚀")
 
-# ================= LOGIC ENGINE =================
 if analyze_btn and ticker:
     with st.status(f"🤖 Analyzing {ticker.upper()}...", expanded=True) as status:
         try:
             st.write("📡 Connecting to Market Data Stream...")
             
-            # --- MOCK MODE ---
+            # MOCK MODE
             if MOCK_MODE:
                 import time
-                time.sleep(1.0) # Simulate API latency
+                time.sleep(1.0) 
                 score = round(random.uniform(-0.8, 0.9), 2)
                 articles = random.randint(5, 50)
                 sentiment = "Positive" if score > 0.3 else "Negative" if score < -0.3 else "Neutral"
@@ -214,7 +156,7 @@ if analyze_btn and ticker:
                     f"Regulatory concerns loom over {ticker.upper()} sector."
                 ]
             
-            # --- REAL MODE ---
+            # REAL MODE
             else:
                 response = requests.get(BACKEND_URL, params={"ticker": ticker}, timeout=10)
                 response.raise_for_status()
@@ -236,7 +178,6 @@ if analyze_btn and ticker:
                 "score": score
             })
 
-            # ================= VISUALIZATION =================
             st.divider()
             
             # Metrics
@@ -316,5 +257,4 @@ if analyze_btn and ticker:
             if not MOCK_MODE:
                 st.info("Ensure your Backend API is running on Port 8000.")
 
-# ================= FOOTER =================
 st.markdown("""<div class="footer">Built for TechSprint 2025</div>""", unsafe_allow_html=True)
