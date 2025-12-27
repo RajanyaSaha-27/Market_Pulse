@@ -121,7 +121,7 @@ streamlit run frontend/app.py
 <h2>🌐 MVP Demo Link</h2>
 <p>
 <b>Live Demo:</b><br/>
-<a href="(https://marketpulse-by-codecrafters.streamlit.app/)" target="_blank">here</a>
+<a href="https://marketpulse-by-codecrafters.streamlit.app/">here</a>
 </p>
 
 <hr/>
