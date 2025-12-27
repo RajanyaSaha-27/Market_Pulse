@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import json
-from news_fetcher import fetch_news
-from sentiment_agent import analyze_sentiment
+from Market_Pulse.news_fetcher import fetch_news
+from Market_Pulse.sentiment_agent import analyze_sentiment
 
 app = FastAPI(title="Market Pulse API")
 
