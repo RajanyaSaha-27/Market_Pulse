@@ -5,6 +5,16 @@ import plotly.graph_objects as go
 import pandas as pd
 import random
 
+BACKEND_URL = "https://market-pulse-iuvs.onrender.com"
+
+def get_analysis(ticker: str):
+    try:
+        res = requests.get(f"{BACKEND_URL}/analyze", params={"ticker": ticker})
+        res.raise_for_status()
+        return res.json()
+    except Exception as e:
+        return {"error": str(e)}
+        
 st.set_page_config(
     page_title="MarketPulse | AI Sentiment",
     page_icon="⚡",
