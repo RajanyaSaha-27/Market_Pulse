@@ -1,6 +1,6 @@
 import json
-from Market_Pulse.config import model
-from Market_Pulse.utils import clean_text
+from config import model
+from utils import clean_text
 
 def analyze_sentiment(ticker, headlines):
     results = []
