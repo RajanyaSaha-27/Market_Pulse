@@ -10,7 +10,7 @@ BACKEND_URL = "https://market-pulse-iuvs.onrender.com"
 
 def get_analysis(ticker: str):
     try:
-        res = requests.get(f"{BACKEND_URL}/analyze", params={"ticker": ticker}, timeout=15)
+        res = requests.get(f"{BACKEND_URL}/analyze", params={"ticker": ticker}, timeout=600)
         res.raise_for_status()
         return res.json()
     except Exception as e:
