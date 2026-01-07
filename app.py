@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import random
 
-# 👉 Your deployed backend (do NOT overwrite this later)
+
 BACKEND_URL = "https://market-pulse-iuvs.onrender.com"
 
 def get_analysis(ticker: str):
