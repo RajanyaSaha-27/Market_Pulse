@@ -11,15 +11,14 @@ def analyze_sentiment(ticker, headlines):
         cleaned = clean_text(news)
 
         prompt = f"""
-You are a financial market sentiment analysis agent.
+Analyze the financial news headline below.
 
-Analyze the following market-related news headline:
-
+Headline:
 "{cleaned}"
 
-Return ONLY valid JSON in this format:
+Return ONLY valid JSON:
 {{
-  "sentiment": "Positive | Negative | Neutral",
+  "sentiment": "positive | negative | neutral",
   "score": number between -1 and 1
 }}
 """
@@ -28,24 +27,23 @@ Return ONLY valid JSON in this format:
             response = model.generate_content(prompt)
             text = response.text
         except Exception:
-            results.append({"sentiment": "Neutral", "score": 0.0})
+            results.append({"sentiment": "neutral", "score": 0.0})
             continue
 
         match = re.search(r"\{.*\}", text, re.DOTALL)
 
         if not match:
-            results.append({"sentiment": "Neutral", "score": 0.0})
+            results.append({"sentiment": "neutral", "score": 0.0})
             continue
 
         try:
-            parsed = json.loads(match.group())
-
-            sentiment = parsed.get("sentiment", "Neutral").capitalize()
-            if sentiment not in ["Positive", "Negative", "Neutral"]:
-                sentiment = "Neutral"
-
-            score = float(parsed.get("score", 0.0))
+            data = json.loads(match.group())
+            score = float(data.get("score", 0.0))
             score = max(-1.0, min(1.0, score))
+
+            sentiment = data.get("sentiment", "neutral").lower()
+            if sentiment not in ["positive", "negative", "neutral"]:
+                sentiment = "neutral"
 
             results.append({
                 "sentiment": sentiment,
@@ -53,6 +51,6 @@ Return ONLY valid JSON in this format:
             })
 
         except Exception:
-            results.append({"sentiment": "Neutral", "score": 0.0})
+            results.append({"sentiment": "neutral", "score": 0.0})
 
     return results
