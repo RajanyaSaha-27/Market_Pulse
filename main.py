@@ -23,7 +23,7 @@ def analyze_market(ticker: str):
             scores.append(float(data.get("score", 0)))
         except Exception:
             scores.append(0)
-    avg_score = sum(scores) / len(scores) if scores else 0
+    avg_score = float(sum(scores) / len(scores)) if scores else 0
     
     sentiment_label = (
         "positive" if avg_score > 0.35 else
