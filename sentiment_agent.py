@@ -1,5 +1,4 @@
 import json
-import re
 from config import model
 from utils import clean_text
 
@@ -13,10 +12,9 @@ def analyze_sentiment(ticker, headlines):
         prompt = f"""
 Analyze the financial news headline below.
 
-Headline:
 "{cleaned}"
 
-Return ONLY valid JSON:
+Return ONLY JSON in this format:
 {{
   "sentiment": "positive | negative | neutral",
   "score": number between -1 and 1
@@ -25,19 +23,8 @@ Return ONLY valid JSON:
 
         try:
             response = model.generate_content(prompt)
-            text = response.text
-        except Exception:
-            results.append({"sentiment": "neutral", "score": 0.0})
-            continue
+            data = json.loads(response.text)
 
-        match = re.search(r"\{.*\}", text, re.DOTALL)
-
-        if not match:
-            results.append({"sentiment": "neutral", "score": 0.0})
-            continue
-
-        try:
-            data = json.loads(match.group())
             score = float(data.get("score", 0.0))
             score = max(-1.0, min(1.0, score))
 
@@ -51,6 +38,9 @@ Return ONLY valid JSON:
             })
 
         except Exception:
-            results.append({"sentiment": "neutral", "score": 0.0})
+            results.append({
+                "sentiment": "neutral",
+                "score": 0.0
+            })
 
     return results
