@@ -127,10 +127,10 @@ if analyze_btn and ticker:
                 if "error" in data:
                     raise Exception(data["error"])
 
-                # sentiment = data.get("sentiment", " bola jabe na")
-                # score = float(data.get("score", 0.0))
-                # articles = data.get("articles_analyzed", 0)
-                # news_headlines = data.get("headlines", ["No news found."])
+                sentiment = data.get("sentiment", " bola jabe na")
+                score = float(data.get("score", 0.0))
+                articles = data.get("articles_analyzed", 0)
+                news_headlines = data.get("headlines", ["No news found."])
 
             st.write("🧠 Gemini AI processing semantics...")
             status.update(label="Analysis Complete!", state="complete", expanded=False)
