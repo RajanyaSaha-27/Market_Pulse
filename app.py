@@ -8,11 +8,33 @@ import random
 
 BACKEND_URL = "https://market-pulse-iuvs.onrender.com"
 
-def get_analysis(ticker: str):
+# def get_analysis(ticker: str):
+    # try:
+     #    res = requests.get(f"{BACKEND_URL}/analyze", params={"ticker": ticker}, timeout=600)
+        # res.raise_for_status()
+       #  return res.json()
+   #  except Exception as e:
+      #   return {"error": str(e)}
+
+def get_analysis(ticker):
     try:
-        res = requests.get(f"{BACKEND_URL}/analyze", params={"ticker": ticker}, timeout=600)
-        res.raise_for_status()
-        return res.json()
+        url = f"{BACKEND_URL}/analyze?ticker={ticker}"
+        res = requests.get(url, timeout=600)
+        data = res.json()
+
+        # 🔥 UNWRAP ticker-level response
+        ticker_data = data.get(ticker.upper())
+
+        if not ticker_data:
+            return {"error": "Invalid backend response"}
+
+        return {
+            "sentiment": ticker_data.get("sentiment", "Unknown"),
+            "score": ticker_data.get("score", 0.0),
+            "articles_analyzed": ticker_data.get("articles_analyzed", 0),
+            "headlines": ticker_data.get("headlines", [])
+        }
+
     except Exception as e:
         return {"error": str(e)}
 
@@ -127,10 +149,10 @@ if analyze_btn and ticker:
                 if "error" in data:
                     raise Exception(data["error"])
 
-                sentiment = data.get("sentiment", " bola jabe na")
-                score = float(data.get("score", 0.0))
-                articles = data.get("articles_analyzed", 0)
-                news_headlines = data.get("headlines", ["No news found."])
+                # sentiment = data.get("sentiment", " bola jabe na")
+                # score = float(data.get("score", 0.0))
+                # articles = data.get("articles_analyzed", 0)
+                # news_headlines = data.get("headlines", ["No news found."])
 
             st.write("🧠 Gemini AI processing semantics...")
             status.update(label="Analysis Complete!", state="complete", expanded=False)
