@@ -10,14 +10,22 @@ def analyze_sentiment(ticker, headlines):
         cleaned = clean_text(news)
 
         prompt = f"""
-Analyze the financial news headline below.
+You are a financial analyst.
 
+Given the news headline below, infer the IMPLIED market impact.
+
+Headline:
 "{cleaned}"
 
-Return ONLY JSON in this format:
+Rules:
+- You MUST choose positive or negative if there is ANY directional signal
+- Use neutral ONLY if completely balanced
+- Scores must NOT be zero unless truly neutral
+
+Return JSON ONLY:
 {{
   "sentiment": "positive | negative | neutral",
-  "score": number between -1 and 1
+  "score": number between -1 and 1 (non-zero if not neutral)
 }}
 """
 
