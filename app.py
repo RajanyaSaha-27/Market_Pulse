@@ -17,6 +17,7 @@ def get_analysis(ticker: str):
         return {"error": str(e)}
 
 
+
 st.set_page_config(
     page_title="MarketPulse | AI Sentiment",
     page_icon="⚡",
@@ -127,10 +128,17 @@ if analyze_btn and ticker:
                 if "error" in data:
                     raise Exception(data["error"])
 
-                sentiment = data.get("sentiment", " bola jabe na")
-                score = float(data.get("score", 0.0))
-                articles = data.get("articles_analyzed", 0)
-                news_headlines = data.get("headlines", ["No news found."])
+                ticker_data = data.get(ticker.upper())
+
+                if not ticker_data:
+                    raise Exception("Invalid backend response")
+
+                sentiment = ticker_data.get("sentiment", "Unknown")
+                score = float(ticker_data.get("score", 0.0))
+                articles = ticker_data.get("articles_analyzed", 0)
+                news_headlines = ticker_data.get(
+                    "headlines", ["No news found."]
+                )
 
             st.write("🧠 Gemini AI processing semantics...")
             status.update(label="Analysis Complete!", state="complete", expanded=False)
