@@ -8,35 +8,14 @@ import random
 
 BACKEND_URL = "https://market-pulse-iuvs.onrender.com"
 
-# def get_analysis(ticker: str):
-    # try:
-     #    res = requests.get(f"{BACKEND_URL}/analyze", params={"ticker": ticker}, timeout=600)
-        # res.raise_for_status()
-       #  return res.json()
-   #  except Exception as e:
-      #   return {"error": str(e)}
-
-def get_analysis(ticker):
+def get_analysis(ticker: str):
     try:
-        url = f"{BACKEND_URL}/analyze?ticker={ticker}"
-        res = requests.get(url, timeout=600)
-        data = res.json()
-
-        # 🔥 UNWRAP ticker-level response
-        ticker_data = data.get(ticker.upper())
-
-        if not ticker_data:
-            return {"error": "Invalid backend response"}
-
-        return {
-            "sentiment": ticker_data.get("sentiment", "Unknown"),
-            "score": ticker_data.get("score", 0.0),
-            "articles_analyzed": ticker_data.get("articles_analyzed", 0),
-            "headlines": ticker_data.get("headlines", [])
-        }
-
+        res = requests.get(f"{BACKEND_URL}/analyze", params={"ticker": ticker}, timeout=600)
+        res.raise_for_status()
+        return res.json()
     except Exception as e:
         return {"error": str(e)}
+
 
 st.set_page_config(
     page_title="MarketPulse | AI Sentiment",
@@ -68,7 +47,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# remove duplicate BACKEND_URL — keep only the deployed one above
 
 if "history" not in st.session_state:
     st.session_state.history = []
