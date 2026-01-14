@@ -127,7 +127,7 @@ if analyze_btn and ticker:
                 if "error" in data:
                     raise Exception(data["error"])
 
-                sentiment = data.get("sentiment", "Unknown")
+                sentiment = data.get("sentiment", " bola jabe na")
                 score = float(data.get("score", 0.0))
                 articles = data.get("articles_analyzed", 0)
                 news_headlines = data.get("headlines", ["No news found."])
