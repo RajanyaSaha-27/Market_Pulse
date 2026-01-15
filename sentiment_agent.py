@@ -41,10 +41,11 @@ Return JSON ONLY:
                 "sentiment": sentiment,
                 "score": score
             })
+            print(result)
 
         except Exception:
             results.append({
-                "sentiment": "neutralll",
+                "sentiment": "neutral",
                 "score": 0.0
             })
 
