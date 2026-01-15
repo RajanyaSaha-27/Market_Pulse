@@ -12,10 +12,7 @@ def analyze_sentiment(ticker, headlines):
         prompt = f"""
 You are a financial analyst.
 
-Given the news headline below, infer the IMPLIED market impact.
-
-Headline:
-"{cleaned}"
+Based on input ticker , do followings on real time data.
 
 Rules:
 - You MUST choose positive or negative if there is ANY directional signal
