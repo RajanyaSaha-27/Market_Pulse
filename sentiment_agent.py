@@ -12,7 +12,10 @@ def analyze_sentiment(ticker, headlines):
         prompt = f"""
 You are a financial analyst.
 
-Based on input ticker , do followings on real time data.
+Using GOOGLE SEARCH to get TODAY'S stock price and news, 
+perform a sentiment analysis on ticker: {ticker}.
+DO NOT use your internal knowledge cutoff. 
+If there is any directional trend in the last 24 hours, you MUST reflect it in the score..
 
 Rules:
 - You MUST choose positive or negative if there is ANY directional signal
