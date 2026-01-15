@@ -44,7 +44,7 @@ Return JSON ONLY:
 
         except Exception:
             results.append({
-                "sentiment": "neutral",
+                "sentiment": "neutralll",
                 "score": 0.0
             })
 
