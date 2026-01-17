@@ -2,7 +2,6 @@
 <h3 align="center">AI-Powered Market Sentiment Analysis using Google Gemini</h3>
 
 <p align="center">
-  <b>TechSprint Hackathon Project</b><br/>
   Real-time sentiment analysis for market-related news (stocks, crypto, indices)
 </p>
 
