@@ -9,7 +9,7 @@ tools_config = [
     {"google_search_retrieval": {}} 
 ]
 model = genai.GenerativeModel(
-    model_name="gemini-2.0-flash",
+    model_name="gemini-3.0-flash",
     tools=tools_config,
     generation_config={
         "temperature": 1.0,
