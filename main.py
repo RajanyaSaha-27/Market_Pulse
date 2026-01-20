@@ -1,10 +1,13 @@
 from fastapi import FastAPI
-from news_fetcher import fetch_news
-from sentiment_agent import analyze_sentiment
+import json
+
+from Market_Pulse.news_fetcher import fetch_news
+from Market_Pulse.sentiment_agent import analyze_sentiment
 
 app = FastAPI(title="Market Pulse API")
 
 
+# ✅ Health check
 @app.get("/")
 def root():
     return {
@@ -13,47 +16,71 @@ def root():
     }
 
 
+# ✅ Actual API
 @app.get("/analyze")
 def analyze_market(ticker: str):
-    ticker = ticker.upper()
-
     news = fetch_news(ticker)
 
-    if not news:
-        return {
-            ticker: {
-                "sentiment": "neutral",
-                "score": 0.0,
-                "articles_analyzed": 0
-            }
-        }
+    sentiments = analyze_sentiment(ticker, news)
 
-    results = analyze_sentiment(ticker, news)
+    print("Sentiments:", sentiments)
 
     scores = []
-    for r in results:
+    for s in sentiments:
         try:
-            s = float(r.get("score", 0.0))
-            scores.append(s)
+            data = json.loads(s)
+            scores.append(float(data.get("score", 0)))
         except Exception:
             continue
 
-    if not scores:
-        avg_score = 0.0
-    else:
-        avg_score = round(sum(scores) / len(scores), 3)
-
-    if avg_score > 0.15:
-        sentiment_label = "positive"
-    elif avg_score < -0.15:
-        sentiment_label = "negative"
-    else:
-        sentiment_label = "neutral"
+    avg_score = sum(scores) / len(scores) if scores else 0
+    
+    sentiment_label = (
+        "positive" if avg_score > 0.15 else
+        "negative" if avg_score < -0.15 else
+        "neutral"
+    )
 
     return {
-        ticker: {
+        ticker.upper(): {
             "sentiment": sentiment_label,
-            "score": avg_score,
-            "articles_analyzed": len(news)
+            "score": round(avg_score, 2),
+            "articles_analyzed": len(news),
+            "headlines": news
         }
     }
+
+
+
+
+
+
+# from fastapi import FastAPI
+# import json
+
+# from Market_Pulse.news_fetcher import fetch_news
+# from Market_Pulse.sentiment_agent import analyze_sentiment
+
+# app = FastAPI(title="Market Pulse API")
+
+# @app.get("/")
+# def root():
+#     return {"message": "Market Pulse backend running"}
+
+# @app.get("/analyze")
+# def analyze_market(ticker: str):
+#     ticker = ticker.strip().upper()
+
+#     news = fetch_news(ticker)
+#     sentiments = analyze_sentiment(ticker, news)
+
+#     data = json.loads(sentiments[0])
+
+#     return {
+#         ticker: {
+#             "sentiment": data["sentiment"],
+#             "score": round(float(data["score"]), 2),
+#             "articles_analyzed": data.get("articles_analyzed", 0),
+#             "summary": data.get("summary", "")
+#         }
+#     }
