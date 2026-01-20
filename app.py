@@ -134,7 +134,7 @@ if analyze_btn and ticker:
                     raise Exception("Invalid backend response")
 
                 sentiment = ticker_data.get("sentiment", "Unknown")
-                score = float(ticker_data.get("score", 0.0))
+                score = float(ticker_data.get("score", 0.5))
                 articles = ticker_data.get("articles_analyzed", 0)
                 news_headlines = ticker_data.get(
                     "headlines", ["No news found."]
