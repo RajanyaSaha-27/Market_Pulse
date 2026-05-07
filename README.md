@@ -365,4 +365,3 @@ B.Tech CSE (AI & ML)
 *"Financial markets speak through sentiment. Market Pulse listens."*
 
 </div>
-```
