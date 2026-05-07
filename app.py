@@ -216,7 +216,7 @@ if analyze_btn and ticker:
             
             # --- REAL MODE ---
             else:
-                response = requests.get(BACKEND_URL, params={"ticker": ticker}, timeout=20)
+                response = requests.get(BACKEND_URL, params={"ticker": ticker}, timeout=120)
                 response.raise_for_status()
                 data = response.json().get(ticker, {})
                 
