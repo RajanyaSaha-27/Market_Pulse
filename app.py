@@ -1,55 +1,3 @@
-# import streamlit as st
-# import requests
-
-# st.set_page_config(page_title="MarketPulse", layout="centered")
-
-# st.title("📊 MarketPulse – AI Market Sentiment")
-
-# ticker = st.text_input("Enter Market Ticker (AAPL, TSLA, BTC, NIFTY)")
-
-# if st.button("Analyze Sentiment"):
-
-#     if not ticker:
-#         st.warning("Please enter a ticker symbol.")
-#         st.stop()
-
-#     try:
-#         response = requests.get(
-#             f"http://127.0.0.1:8000/analyze?ticker={ticker}",
-#             timeout=30
-#         )
-#         response.raise_for_status()
-
-#         data = response.json()[ticker]
-#         key = list(data.keys())[0]
-#         result = data[key]
-
-#     except requests.exceptions.Timeout:
-#         st.error("⏳ Backend is taking too long to respond.")
-#         st.stop()
-
-#     except requests.exceptions.ConnectionError:
-#         st.error("❌ Backend is not running. Start FastAPI first.")
-#         st.stop()
-
-#     except Exception as e:
-#         st.error(f"Unexpected error: {e}")
-#         st.stop()
-
-#     # ---------- UI OUTPUT ----------
-#     st.subheader(f"Sentiment for {ticker}")
-
-#     color = (
-#         "🟢" if data["sentiment"] == "positive" else
-#         "🔴" if data["sentiment"] == "negative" else
-#         "🟡"
-#     )
-
-#     st.markdown(f"### {color} {data['sentiment'].upper()}")
-#     st.metric("Sentiment Score", data["score"])
-#     st.text(f"Articles Analyzed: {data['articles_analyzed']}")
-
-
 import streamlit as st
 import requests
 from datetime import datetime
@@ -317,4 +265,4 @@ if analyze_btn and ticker:
                 st.info("Ensure your Backend API is running on Port 8000.")
 
 # ================= FOOTER =================
-st.markdown("""<div class="footer">Built for TechSprint 2025</div>""", unsafe_allow_html=True)
+st.markdown("""<div class="footer">Built by Rajanya Saha</div>""", unsafe_allow_html=True)
