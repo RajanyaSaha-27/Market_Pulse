@@ -200,7 +200,7 @@ AAPL / TSLA / NIFTY / RELIANCE
 
 <p>
 <b>Live Demo:</b>
-<a href="[https://market-pulse-iuvs.onrender.com](https://marketpulse-by-codecrafters.streamlit.app/)">here</a>
+<a href="https://marketpulse-by-codecrafters.streamlit.app/">here</a>
 </p>
 
 ---
