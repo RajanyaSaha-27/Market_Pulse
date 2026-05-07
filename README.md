@@ -152,9 +152,9 @@ AAPL / TSLA / NIFTY / RELIANCE
 
 ## 📷 Dashboard Preview
 <img width="1732" height="544" alt="Screenshot 2025-12-27 183722" src="https://github.com/user-attachments/assets/44673872-5155-43d3-a2ba-5f178f706f31" />
-
+--
 <img width="1708" height="675" alt="Screenshot 2025-12-27 182745" src="https://github.com/user-attachments/assets/0bdc38be-661a-4efe-b1d7-c685300c90c9" />
-
+--
 <img width="297" height="901" alt="Screenshot 2025-12-27 183153" src="https://github.com/user-attachments/assets/f3e643a3-4449-4e85-a33f-09236fdebba9" />
 
 
