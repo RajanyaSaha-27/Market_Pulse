@@ -141,7 +141,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ================= STATE MANAGEMENT =================
-BACKEND_URL = "http://127.0.0.1:8000/analyze"
+BACKEND_URL = "https://market-pulse-iuvs.onrender.com/analyze"
 
 if "history" not in st.session_state:
     st.session_state.history = []
