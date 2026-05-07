@@ -353,7 +353,7 @@ Market_Pulse/
 
 ## 👤 Author
 
-**Rajanya Saha**
+**Rajanya Saha**<br>
 B.Tech CSE (AI & ML)
 
 ---
